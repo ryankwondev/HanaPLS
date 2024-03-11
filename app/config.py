@@ -8,9 +8,6 @@ class Settings(BaseSettings):
     MONGODB_HOST: str
     MONGODB_PORT: int
 
-    class Config:
-        env_file = "../.env"
-
 
 settings = Settings()
 
