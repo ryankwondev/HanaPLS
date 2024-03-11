@@ -51,4 +51,6 @@ async def inquiry_page(token: str, request: Request):
 
     # return [i for i in mongo["20240312"].find({"code": int(payload["code"])}, {"_id": 0})]]
     res = [i for i in mongo["20240312"].find({"code": int(payload["code"])}, {"_id": 0})]
+    if len(res) == 0:
+        return "해당하는 학생이 없습니다."
     return templates.TemplateResponse("inquiry.html", {"request": request, "name": res[0]["name"], "students": res})
