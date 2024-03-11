@@ -1,0 +1,28 @@
+<!-- templates/inquiry.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HanaPLS 조회 결과</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+<div class="min-h-screen flex items-center justify-center">
+    <div class="bg-white rounded-lg p-10 shadow-md">
+        <h1 class="text-3xl font-bold mb-6">{{ student.name }}님, 안녕하세요!</h1>
+        <div>
+            <ul>
+                {% for student in students %}
+                <li>
+                    <span class="font-semibold">학년:</span> {{ student.grade }},
+                    <span class="font-semibold">반:</span> {{ student.class }},
+                    <span class="font-semibold">학생 코드:</span> {{ student.code }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

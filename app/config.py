@@ -7,6 +7,10 @@ class Settings(BaseSettings):
     MONGODB_DATABASE: str
     MONGODB_HOST: str
     MONGODB_PORT: int
+    SECRET_KEY: str
+
+    class Config:
+        env_file = ".env"
 
 
 settings = Settings()

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <title>HanaPLS</title>
+</head>
+<body class="bg-gray-100">
+<div class="min-h-screen flex items-center justify-center">
+    <div class="bg-white rounded-lg p-10 shadow-md">
+        <h1 class="text-3xl font-bold mb-6">HanaPLS 하나고 개인 조회 시스템</h1>
+        <form onsubmit="handleSubmit(event)">
+            <label class="block mb-2">인트라넷 아이디</label>
+            <input id="intranetId" class="block w-full mb-4 p-2 border border-gray-300 rounded" type="text">
+            <label class="block mb-2">인트라넷 비밀번호</label>
+            <input id="intranetPw" class="block w-full mb-4 p-2 border border-gray-300 rounded" type="password">
+            <button id="submitButton"
+                    class="w-full py-3 px-6 text-center font-semibold text-white rounded-lg bg-blue-500" type="submit">
+                조회하기
+            </button>
+            <p id="loadingText" class="hidden text-xs text-gray-600 mt-4">로그인 중...</p>
+            <p class="text-xs text-gray-600 mt-4">인트라넷 계정 정보는 서버에 저장되지 않으며, 개인 조회의 목적으로만 이용됩니다.</p>
+        </form>
+    </div>
+</div>
+<script>
+    async function handleSubmit(event) {
+        event.preventDefault();
+        const intranetId = document.getElementById('intranetId').value;
+        const intranetPw = document.getElementById('intranetPw').value;
+
+        const submitButton = document.getElementById('submitButton');
+        const loadingText = document.getElementById('loadingText');
+
+        submitButton.disabled = true;
+        loadingText.classList.remove('hidden');
+
+        try {
+            const response = await fetch('/intranet_login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({login_id: intranetId, login_pw: intranetPw})
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const uniqueCode = data.code;
+                window.location.href = `/inquiry?token=${uniqueCode}`;
+            } else {
+                throw new Error('로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.');
+            }
+        } catch (error) {
+            alert(error.message);
+        } finally {
+            submitButton.disabled = false;
+            loadingText.classList.add('hidden');
+        }
+    }
+</script>
+</body>
+</html>
