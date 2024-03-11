@@ -49,4 +49,6 @@ async def inquiry_page(token: str, request: Request):
     except jwt.JWTError:
         return {"error": "토큰이 유효하지 않습니다."}
 
-    return [i for i in mongo["20240312"].find({"code": int(payload["code"])}, {"_id": 0})]
+    # return [i for i in mongo["20240312"].find({"code": int(payload["code"])}, {"_id": 0})]]
+    res = [i for i in mongo["20240312"].find({"code": int(payload["code"])}, {"_id": 0})]
+    return templates.TemplateResponse("inquiry.html", {"request": request, "name": res[0]["name"], "students": res})

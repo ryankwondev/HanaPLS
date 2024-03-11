@@ -10,14 +10,13 @@
 <body class="bg-gray-100">
 <div class="min-h-screen flex items-center justify-center">
     <div class="bg-white rounded-lg p-10 shadow-md">
-        <h1 class="text-3xl font-bold mb-6">{{ student.name }}님, 안녕하세요!</h1>
+        <h1 class="text-3xl font-bold mb-6">{{ name }}님, 안녕하세요!</h1>
         <div>
             <ul>
                 {% for student in students %}
                 <li>
-                    <span class="font-semibold">학년:</span> {{ student.grade }},
-                    <span class="font-semibold">반:</span> {{ student.class }},
-                    <span class="font-semibold">학생 코드:</span> {{ student.code }}
+                    <span class="font-semibold">동아리 :</span> {{ student.club }},
+                    <span class="font-semibold">타임: </span> {{ student.time }},
                 </li>
                 {% endfor %}
             </ul>
